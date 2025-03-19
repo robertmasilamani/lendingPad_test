@@ -31,11 +31,15 @@ namespace Data
                                }, lifestyle);
         }
 
+        /*
+         * http://localhost:8080/
+         *http://laptop-s69ng7d2:8081
+        */
         private static IDocumentStore InitializeDocumentStore(Assembly assembly, bool createIndexes)
         {
             var documentStore = new DocumentStore
                                 {
-                                    Url = "http://localhost:8080/",
+                                    Url = "http://laptop-s69ng7d2:8081",
                                     DefaultDatabase = "SampleProject",
                                     Conventions =
                                     {

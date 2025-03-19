@@ -5,6 +5,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Services\NewFolder1\**" />
+      <Compile Remove="Services\NewFolder\**" />
+      <EmbeddedResource Remove="Services\NewFolder1\**" />
+      <EmbeddedResource Remove="Services\NewFolder\**" />
+      <None Remove="Services\NewFolder1\**" />
+      <None Remove="Services\NewFolder\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
         <PackageReference Include="RavenDB.Client" Version="3.5.9" />
@@ -14,6 +23,10 @@
     <ItemGroup>
         <ProjectReference Include="..\BusinessEntities\BusinessEntities.csproj" />
         <ProjectReference Include="..\Data\Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services\Orders\" />
     </ItemGroup>
 
 </Project>

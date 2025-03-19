@@ -7,7 +7,7 @@ namespace Core.Services.Users
     public interface IGetUserService
     {
         User GetUser(Guid id);
-
+        IEnumerable<User> GetUsersWithTag(string tag = null);
         IEnumerable<User> GetUsers(UserTypes? userType = null, string name = null, string email = null);
     }
 }

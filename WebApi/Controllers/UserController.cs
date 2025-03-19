@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Configuration;
+using System.Configuration.Internal;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using BusinessEntities;
 using Core.Services.Users;
 using WebApi.Models.Users;
+using System.Web.Configuration;
+using System.Web.Helpers;
+using System.Xml.Linq;
 
 namespace WebApi.Controllers
 {
@@ -41,7 +46,8 @@ namespace WebApi.Controllers
             {
                 return DoesNotExist();
             }
-            _updateUserService.Update(user, model.Name, model.Email, model.Type, model.AnnualSalary, model.Tags);
+            decimal _defaultSalary = Convert.ToDecimal(ConfigurationManager.AppSettings["defaultsalary"]);
+            _updateUserService.Update(user, model.Name, model.Email, model.Type, model.AnnualSalary.HasValue ? model.AnnualSalary : _defaultSalary, model.Tags);
             return Found(new UserData(user));
         }
 
@@ -89,7 +95,10 @@ namespace WebApi.Controllers
         [HttpGet]
         public HttpResponseMessage GetUsersByTag(string tag)
         {
-            throw new NotImplementedException();
+            var users = _getUserService.GetUsersWithTag(tag);
+                                       
+            return Found(users);
+            //throw new NotImplementedException();
         }
     }
 }
