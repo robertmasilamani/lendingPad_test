@@ -714,7 +714,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49834/products/list/Category=Fashon",
+									"raw": "http://localhost:49834/products/list/Category?Category=3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -723,7 +723,13 @@
 									"path": [
 										"products",
 										"list",
-										"Category=Fashon"
+										"Category"
+									],
+									"query": [
+										{
+											"key": "Category",
+											"value": "3"
+										}
 									]
 								}
 							},
@@ -735,7 +741,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49834/Products/list?skip=1&take=2&name=Apple",
+									"raw": "http://localhost:49834/Products/list?skip=0&take=2&name=Shirt",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -748,7 +754,7 @@
 									"query": [
 										{
 											"key": "skip",
-											"value": "1"
+											"value": "0"
 										},
 										{
 											"key": "take",
@@ -756,7 +762,7 @@
 										},
 										{
 											"key": "name",
-											"value": "Apple"
+											"value": "Shirt"
 										}
 									]
 								}
@@ -769,15 +775,15 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49834/users/1422740e-6426-4c46-8445-3f5274a62424/Delete",
+									"raw": "http://localhost:49834/Products/6b5b129c-d73f-4530-8375-055e670c27f2/Delete",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "49834",
 									"path": [
-										"users",
-										"1422740e-6426-4c46-8445-3f5274a62424",
+										"Products",
+										"6b5b129c-d73f-4530-8375-055e670c27f2",
 										"Delete"
 									]
 								}
@@ -788,7 +794,448 @@
 				},
 				{
 					"name": "Orders",
-					"item": []
+					"item": [
+						{
+							"name": "Initialize",
+							"item": [
+								{
+									"name": "Clear All Orders",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var uuid = require('uuid');\r",
+													"pm.environment.set('guid', uuid.v4());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"orderType\": 2,\r\n    \"userId\":\"1422740e-6426-4c46-8445-3f5274a62425\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"40b9654c-af48-4265-8587-5f61fac54f37\",\r\n            \"Quantity\":\"20\" \r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantity\":\"5\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 37.5,\r\n    \"tax\": 3.5,\r\n    \"totalPrice\": 41,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:49834/Order/clear",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "49834",
+											"path": [
+												"Order",
+												"clear"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Order for Robert",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var uuid = require('uuid');\r",
+													"pm.environment.set('guid', uuid.v4());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"orderType\": 2,\r\n    \"userId\":\"1422740e-6426-4c46-8445-3f5274a62425\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"40b9654c-af48-4265-8587-5f61fac54f37\",\r\n            \"Quantiry\":\"20\"\r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantiry\":\"5\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 37.5,\r\n    \"tax\": 3.5,\r\n    \"totalPrice\": 41,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:49834/Order/{{$guid}}/create",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "49834",
+											"path": [
+												"Order",
+												"{{$guid}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Order for Mary",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var uuid = require('uuid');\r",
+													"pm.environment.set('guid', uuid.v4());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"orderType\": 1,\r\n    \"userId\":\"9429ad43-07a2-4b2d-a69f-346ee5928617\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"40b9654c-af48-4265-8587-5f61fac54f37\",\r\n            \"Quantiry\":\"30\"\r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantiry\":\"12\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 50,\r\n    \"tax\": 3,\r\n    \"totalPrice\": 53,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:49834/Order/{{$guid}}/create",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "49834",
+											"path": [
+												"Order",
+												"{{$guid}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Order for Mark",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var uuid = require('uuid');\r",
+													"pm.environment.set('guid', uuid.v4());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"orderType\": 2,\r\n    \"userId\":\"1422740e-6426-4c46-8445-3f5274a62425\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"c9caa090-3e6a-4b41-9edd-a82f6742b45f\",\r\n            \"Quantiry\":\"1\"\r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantiry\":\"2\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 23.5,\r\n    \"tax\": 2.5,\r\n    \"totalPrice\": 26,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:49834/Order/{{$guid}}/create",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "49834",
+											"path": [
+												"Order",
+												"{{$guid}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Order for John",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var uuid = require('uuid');\r",
+													"pm.environment.set('guid', uuid.v4());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"orderType\": 2,\r\n    \"userId\":\"1422740e-6426-4c46-8445-3f5274a62425\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"40b9654c-af48-4265-8587-5f61fac54f37\",\r\n            \"Quantiry\":\"20\"\r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantiry\":\"5\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 37.5,\r\n    \"tax\": 3.5,\r\n    \"totalPrice\": 41,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:49834/Order/{{$guid}}/create",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "49834",
+											"path": [
+												"Order",
+												"{{$guid}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete Order by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var uuid = require('uuid');\r",
+											"pm.environment.set('guid', uuid.v4());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"orderType\": 2,\r\n    \"userId\":\"1422740e-6426-4c46-8445-3f5274a62425\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"40b9654c-af48-4265-8587-5f61fac54f37\",\r\n            \"Quantiry\":\"20\"\r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantiry\":\"5\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 37.5,\r\n    \"tax\": 3.5,\r\n    \"totalPrice\": 41,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/Order/2bac448b-ea7c-4aa4-af6c-1e4d63be19fe/Delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"Order",
+										"2bac448b-ea7c-4aa4-af6c-1e4d63be19fe",
+										"Delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var uuid = require('uuid');\r",
+											"pm.environment.set('guid', uuid.v4());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"orderType\": 2,\r\n    \"userId\":\"1422740e-6426-4c46-8445-3f5274a62425\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"40b9654c-af48-4265-8587-5f61fac54f37\",\r\n            \"Quantiry\":\"20\"\r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantiry\":\"5\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 37.5,\r\n    \"tax\": 3.5,\r\n    \"totalPrice\": 41,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/Order/0455c330-035e-4424-b374-d49d38b63ddd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"Order",
+										"0455c330-035e-4424-b374-d49d38b63ddd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order with Type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var uuid = require('uuid');\r",
+											"pm.environment.set('guid', uuid.v4());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"orderType\": 2,\r\n    \"userId\":\"1422740e-6426-4c46-8445-3f5274a62425\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"40b9654c-af48-4265-8587-5f61fac54f37\",\r\n            \"Quantiry\":\"20\"\r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantiry\":\"5\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 37.5,\r\n    \"tax\": 3.5,\r\n    \"totalPrice\": 41,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/Order/list/OrderType?OrderType=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"Order",
+										"list",
+										"OrderType"
+									],
+									"query": [
+										{
+											"key": "OrderType",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Order for John",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var uuid = require('uuid');\r",
+											"pm.environment.set('guid', uuid.v4());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"orderType\": 1,\r\n    \"userId\":\"1422740e-6426-4c46-8445-3f5274a62425\",\r\n    \"Productlist\": [\r\n         {\r\n            \"ProductId\":\"40b9654c-af48-4265-8587-5f61fac54f37\",\r\n            \"Quantity\":\"20\" \r\n        },\r\n        {\r\n            \"ProductId\":\"d4486591-2179-4517-8435-f40e4a3f3f6e\",\r\n            \"Quantity\":\"5\"\r\n        }\r\n    ]    ,\r\n    \"Price\": 40.5,\r\n    \"tax\": 3.5,\r\n    \"totalPrice\": 44,\r\n    \"address\":{\r\n        \"AddressLine1\": \"dsfsdfsdf dasf sdf sdf\",\r\n        \"AddressLine2\": \"jkhdfkghkj\",\r\n        \"City\" : \"Roanoke\",\r\n        \"State\" : \"TX\",\r\n        \"Zip\" :76262\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/Order/072702b8-c167-40a9-8979-432084ef33b6/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"Order",
+										"072702b8-c167-40a9-8979-432084ef33b6",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Order List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/Order/list?skip=0&take=2&OrderType=1&userId=9429ad43-07a2-4b2d-a69f-346ee5928617",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"Order",
+										"list"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "0"
+										},
+										{
+											"key": "take",
+											"value": "2"
+										},
+										{
+											"key": "OrderType",
+											"value": "1"
+										},
+										{
+											"key": "userId",
+											"value": "9429ad43-07a2-4b2d-a69f-346ee5928617"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
