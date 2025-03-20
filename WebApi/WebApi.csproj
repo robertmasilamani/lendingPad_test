@@ -173,6 +173,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -180,6 +181,8 @@
     </Compile>
     <Compile Include="Models\EnumData.cs" />
     <Compile Include="Models\IdObjectData.cs" />
+    <Compile Include="Models\Order\OrderData.cs" />
+    <Compile Include="Models\Order\OrderModel.cs" />
     <Compile Include="Models\Products\ProductData.cs" />
     <Compile Include="Models\Products\ProductModel.cs" />
     <Compile Include="Models\Users\UserData.cs" />
@@ -254,6 +257,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Order\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
   <PropertyGroup>
